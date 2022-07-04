@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: investment-service
-          image: venenium/user-service:latest
+          image: venenium/investmentservice:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 90
