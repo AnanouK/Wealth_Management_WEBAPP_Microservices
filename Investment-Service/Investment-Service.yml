@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: investment-service
+  labels:
+    app: investment-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app : investment-service
+  template:
+    metadata:
+      labels:
+        app: investment-service
+    spec:
+      containers:
+        - name: investment-service
+          image: venenium/user-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 90
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name:  investment-service-svc
+spec:
+  selector:
+    app:  investment-service
+  type : ClusterIP
+  ports:
+    - port:  80
+      targetPort:  90
