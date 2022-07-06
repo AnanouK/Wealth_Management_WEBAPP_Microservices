@@ -23,7 +23,7 @@ spec:
 apiVersion: v1 # Kubernetes API version
 kind: Service # Kubernetes resource kind we are creating
 metadata: # Metadata of the resource kind we are creating
-  name: investment-service-svc
+  name: investment-service
 spec:
   selector:
     app: investment-service
