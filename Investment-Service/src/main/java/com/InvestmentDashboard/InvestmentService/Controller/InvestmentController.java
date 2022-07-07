@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/investments")
 @ResponseStatus(HttpStatus.OK)
 @AllArgsConstructor
 
@@ -104,6 +104,8 @@ public class InvestmentController {
     public String ok() {
         return "Class Level HTTP Status Overriden. The HTTP Status will be OK (CODE 200)\n";
     }
+
+
 
 
 
