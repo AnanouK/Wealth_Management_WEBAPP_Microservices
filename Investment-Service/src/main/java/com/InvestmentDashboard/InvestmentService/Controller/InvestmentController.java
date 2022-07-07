@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/investments")
+@RequestMapping("/")
 @ResponseStatus(HttpStatus.OK)
 @AllArgsConstructor
 
@@ -77,7 +77,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/pourcentagebenefice")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(code = HttpStatus.OK)
     public float pourcentagebeneficeallinvestments ()
     {
         return investmentService.pourcentagebeneficeallinvestments();
@@ -97,6 +97,12 @@ public class InvestmentController {
     public Investment updateinvestment(@PathVariable int id, @RequestBody Investment investment)
     {
         return investmentService.updateinvestment(id, investment);
+    }
+
+    @GetMapping("/")
+    @ResponseStatus(code = HttpStatus.OK, reason = "OK")
+    public String ok() {
+        return "Class Level HTTP Status Overriden. The HTTP Status will be OK (CODE 200)\n";
     }
 
 
