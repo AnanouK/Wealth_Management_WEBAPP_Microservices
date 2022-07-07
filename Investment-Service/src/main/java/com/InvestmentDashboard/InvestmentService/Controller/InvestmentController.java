@@ -3,6 +3,7 @@ package com.InvestmentDashboard.InvestmentService.Controller;
 import com.InvestmentDashboard.InvestmentService.Model.Investment;
 import com.InvestmentDashboard.InvestmentService.Service.InvestmentService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/investments")
+@ResponseStatus(HttpStatus.OK)
 @AllArgsConstructor
 
 public class InvestmentController {
@@ -19,6 +21,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/allinvestments")
+    @ResponseStatus(HttpStatus.OK)
     public List<Investment> allinvestments ()
     {
         return investmentService.allinvestments();
@@ -26,6 +29,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<Investment> getinvestmentbyid(@PathVariable   int id)
     {
         return investmentService.getinvestmentbyid(id);
@@ -33,6 +37,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/addinvestment")
+    @ResponseStatus(HttpStatus.OK)
     public Investment addinvestment (@RequestBody Investment investment)
     {
         return investmentService.addinvestment(investment);
@@ -40,6 +45,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/allcapital")
+    @ResponseStatus(HttpStatus.OK)
     public float allcapital()
     {
        return investmentService.allcapital();
@@ -47,6 +53,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/allactual")
+    @ResponseStatus(HttpStatus.OK)
     public float allactual()
     {
         return investmentService.allactual();
@@ -54,6 +61,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/allbenefice")
+    @ResponseStatus(HttpStatus.OK)
     public float allbenefice()
     {
         return investmentService.allbenefice();
@@ -61,6 +69,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/benefice")
+    @ResponseStatus(HttpStatus.OK)
     public float getbenefice (@PathVariable int id)
     {
         return investmentService.getbenefice(id);
@@ -68,6 +77,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/pourcentagebenefice")
+    @ResponseStatus(HttpStatus.OK)
     public float pourcentagebeneficeallinvestments ()
     {
         return investmentService.pourcentagebeneficeallinvestments();
@@ -75,6 +85,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/alldata")
+    @ResponseStatus(HttpStatus.OK)
     public String alldata()
     {
         return investmentService.alldata();
@@ -82,6 +93,7 @@ public class InvestmentController {
 
     @CrossOrigin(origins = "*")
     @PutMapping ("/update/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Investment updateinvestment(@PathVariable int id, @RequestBody Investment investment)
     {
         return investmentService.updateinvestment(id, investment);
