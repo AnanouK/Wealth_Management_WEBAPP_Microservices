@@ -17,7 +17,7 @@ spec:
           image: venenium/investmentservice:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 9001
+            - containerPort: 80
 ---
 
 apiVersion: v1 # Kubernetes API version
@@ -30,5 +30,5 @@ spec:
     app: investment-service
   ports:
     - protocol: "TCP"
-      port: 9001 # The port that the service is running on in the cluster
-      targetPort: 9001 # The port exposed by the service
+      port: 80 # The port that the service is running on in the cluster
+      targetPort: 80 # The port exposed by the service
