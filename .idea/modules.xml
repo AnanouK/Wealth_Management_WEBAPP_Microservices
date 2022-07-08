@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/Investment-Service/Investment-Service.iml" filepath="$PROJECT_DIR$/Investment-Service/Investment-Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/InvestmentProjectBackend.iml" filepath="$PROJECT_DIR$/.idea/InvestmentProjectBackend.iml" />
       <module fileurl="file://$PROJECT_DIR$/Registry-Service/Registry-Service.iml" filepath="$PROJECT_DIR$/Registry-Service/Registry-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Statistics-Service/Statistics-Service.iml" filepath="$PROJECT_DIR$/Statistics-Service/Statistics-Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/User-Service/User-Service.iml" filepath="$PROJECT_DIR$/User-Service/User-Service.iml" />
     </modules>
   </component>

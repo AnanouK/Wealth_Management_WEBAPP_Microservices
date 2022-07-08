@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Statistics-Service" />
         <module name="API-Gateway" />
         <module name="Registry-Service" />
         <module name="User-Service" />
@@ -17,6 +18,7 @@
       <module name="API-Gateway" target="17" />
       <module name="Investment-Service" target="18" />
       <module name="Registry-Service" target="17" />
+      <module name="Statistics-Service" target="17" />
       <module name="User-Service" target="18" />
     </bytecodeTargetLevel>
   </component>
@@ -25,6 +27,7 @@
       <module name="API-Gateway" options="-parameters" />
       <module name="Investment-Service" options="-parameters" />
       <module name="Registry-Service" options="-parameters" />
+      <module name="Statistics-Service" options="-parameters" />
       <module name="User-Service" options="-parameters" />
     </option>
   </component>

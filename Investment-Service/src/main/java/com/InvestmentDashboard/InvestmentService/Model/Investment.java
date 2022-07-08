@@ -31,16 +31,20 @@ public class Investment {
     private Boolean api;
     private String apikey;
     private String secret;
+    private String username;
 
-    public Investment(String name, String start, float capital, float actual, float benefice) {
+    public Investment(String name, String start, float capital, float actual, float benefice,boolean api, String apikey, String secret, String username) {
         this.name = name;
         this.start = start;
         this.capital = capital;
         this.actual = actual;
         this.benefice = benefice;
-        this.api = Boolean.FALSE;
-        this.apikey = "";
-        this.secret = "";
+        this.api = api;
+        this.apikey = apikey;
+        this.secret = secret;
+        this.username = username;
 
     }
+
+
 }

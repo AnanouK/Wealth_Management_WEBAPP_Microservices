@@ -31,7 +31,7 @@ public class InvestmentService {
          float actual = investment.getActual();
          float benefice = actual - capital;
 
-         Investment save = new Investment(investment.getName(), investment.getStart(), investment.getCapital(), investment.getActual(), benefice );
+         Investment save = new Investment(investment.getName(), investment.getStart(), investment.getCapital(), investment.getActual(), benefice,false, " ", " ","venenium" );
          return investmentRepository.save(save);
     }
 
@@ -104,13 +104,24 @@ public class InvestmentService {
     }
 
     public Investment updateinvestment(int id, Investment investmentDetails) {
-         Investment investmentRecup = investmentRepository.getById(id);
-        investmentRecup.setName(investmentDetails.getName());
-        investmentRecup.setStart(investmentDetails.getStart());
-        investmentRecup.setCapital(investmentDetails.getCapital());
-        investmentRecup.setActual(investmentDetails.getActual());
-        investmentRecup.setBenefice(investmentDetails.getActual() - investmentDetails.getCapital());
+         Optional<Investment> investmentRecup = investmentRepository.findById(id);
+         Investment newInvestment = investmentRecup.get();
+         newInvestment.setName(investmentDetails.getName());
+        newInvestment.setStart(investmentDetails.getStart());
+        newInvestment.setCapital(investmentDetails.getCapital());
+        newInvestment.setActual(investmentDetails.getActual());
+        newInvestment.setApi(investmentDetails.getApi());
+        newInvestment.setApikey(investmentDetails.getApikey());
+        newInvestment.setSecret(investmentDetails.getSecret());
+        newInvestment.setUsername(investmentDetails.getUsername());
+        newInvestment.setBenefice(investmentDetails.getActual() - investmentDetails.getCapital());
 
-        return investmentRecup;
+        return investmentRepository.save(newInvestment);
+
+
+    }
+
+    public void deleteInvestment(int id) {
+        investmentRepository.deleteById(id);
     }
 }

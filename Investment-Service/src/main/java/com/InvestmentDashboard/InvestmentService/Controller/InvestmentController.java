@@ -99,10 +99,17 @@ public class InvestmentController {
         return investmentService.updateinvestment(id, investment);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/")
     @ResponseStatus(code = HttpStatus.OK, reason = "OK")
     public String ok() {
         return "Class Level HTTP Status Overriden. The HTTP Status will be OK (CODE 200)\n";
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/delete/{id}")
+    public void deleteInvestment(@PathVariable int id){
+        investmentService.deleteInvestment(id);
     }
 
 
