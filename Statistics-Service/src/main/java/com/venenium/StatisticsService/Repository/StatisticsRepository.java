@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface StatisticsRepository extends JpaRepository <Statistics, Integer> {
 
-    List<Statistics> findByNameAndUsername(String name, String username);
+    List<Statistics> findByNameAndUsername(String Name, String Username);
 }
 
 

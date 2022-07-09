@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/statistics")
 @ResponseStatus(HttpStatus.OK)
@@ -16,8 +18,8 @@ public class StatisticsController {
     private final StatisticsService statisticsService;
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/getstatisticsof")
-    public String getDataForOne(@RequestBody String investmentName,@RequestBody String clientUsername){
+    @GetMapping("/getstatisticsof/{investmentName}/{clientUsername}")
+    public String getDataForOne(@PathVariable String investmentName,@PathVariable String clientUsername){
 
         return statisticsService.getDataForOne(investmentName,clientUsername);
     }
@@ -27,4 +29,12 @@ public class StatisticsController {
     {
         return statisticsService.addStatistic(statistics);
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/allstatistics")
+    public List<Statistics> allStatistics()
+    {
+        return statisticsService.allStatistics();
+    }
+
 }

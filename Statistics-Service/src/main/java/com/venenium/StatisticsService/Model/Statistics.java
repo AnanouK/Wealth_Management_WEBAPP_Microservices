@@ -26,4 +26,5 @@ public class Statistics {
     private String apikey;
     private String secret;
     private String username;
+
 }
