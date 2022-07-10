@@ -28,6 +28,14 @@ public class InvestmentController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/allinvestments/{username}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Investment> allinvestmentsof (@PathVariable String username)
+    {
+        return investmentService.allinvestmentsof(username);
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Investment> getinvestmentbyid(@PathVariable   int id)
@@ -84,11 +92,11 @@ public class InvestmentController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/alldata")
+    @GetMapping("/alldata/{username}")
     @ResponseStatus(HttpStatus.OK)
-    public String alldata()
+    public String alldata(@PathVariable String username)
     {
-        return investmentService.alldata();
+        return investmentService.alldata(username);
     }
 
     @CrossOrigin(origins = "*")

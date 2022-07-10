@@ -85,12 +85,12 @@ public class InvestmentService {
         return allbenefice() / allcapital() * 100;
     }
 
-    public String alldata() {
+    public String alldata(String username) {
         float capital = 0;
         float actual = 0;
         float benefice = 0;
 
-        List<Investment> liste =  investmentRepository.findAll();
+        List<Investment> liste =  investmentRepository.findAllByUsername(username);
         for (int j = 0; j < liste.size() ; j++) {
             capital += liste.get(j).getCapital();
             actual += liste.get(j).getActual();
@@ -123,5 +123,9 @@ public class InvestmentService {
 
     public void deleteInvestment(int id) {
         investmentRepository.deleteById(id);
+    }
+
+    public List<Investment> allinvestmentsof(String username) {
+        return investmentRepository.findAllByUsername(username);
     }
 }
