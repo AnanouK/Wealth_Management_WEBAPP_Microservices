@@ -20,15 +20,25 @@ public class StatisticsService {
     public String getDataForOne(String investmentName, String clientUsername) {
 
         List<Statistics> result = statisticsRepository.findByNameAndUsername(investmentName, clientUsername);
-        String finalvar = "";
+        String finalvar = "[";
 
         for (int j = 0; j < result.size() ; j++) {
+            if (j == result.size()-1){
+                finalvar += "{\"Date\":";
+                finalvar += "\"" + result.get(j).getStart() + "\"" + ",";
+                finalvar += "\"Capital\":";
+                finalvar += String.valueOf(result.get(j).getActual()) + "}";
+            }
 
-            finalvar += "{name:";
-            finalvar += result.get(j).getName() + ",";
-            finalvar += "Capital";
-            finalvar += String.valueOf(result.get(j).getActual()) + "},";
+            else {
+                finalvar += "{\"Date\":";
+                finalvar += "\"" + result.get(j).getStart() + "\"" + ",";
+                finalvar += "\"Capital\":";
+                finalvar += String.valueOf(result.get(j).getActual()) + "},";
+            }
+
         }
+        finalvar +="]";
 
         return finalvar;
 
@@ -37,7 +47,7 @@ public class StatisticsService {
     public Statistics addStatistic(Statistics statistics) {
         Statistics newstats = new Statistics();
         newstats.setName(statistics.getName());
-        newstats.setDate(statistics.getDate());
+        newstats.setStart(statistics.getStart());
         newstats.setActual(statistics.getActual());
 
         if (statistics.getUsername() == "" || statistics.getUsername() == null)
@@ -49,5 +59,10 @@ public class StatisticsService {
     public List<Statistics> allStatistics() {
 
         return statisticsRepository.findAll();
+    }
+
+    public void delete(String name) {
+
+        statisticsRepository.deleteAllByName(name);
     }
 }

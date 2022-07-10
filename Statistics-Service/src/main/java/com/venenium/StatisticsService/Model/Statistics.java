@@ -20,7 +20,8 @@ public class Statistics {
     private int id;
 
     private String name;
-    private String date;
+    private String start;
+    private String capital;
     private float actual;
     private Boolean api;
     private String apikey;

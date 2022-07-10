@@ -37,4 +37,11 @@ public class StatisticsController {
         return statisticsService.allStatistics();
     }
 
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/delete/{name}")
+    public void delete(@PathVariable String name)
+    {
+        statisticsService.delete(name);
+    }
+
 }
