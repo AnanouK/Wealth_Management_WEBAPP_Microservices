@@ -44,4 +44,12 @@ public class StatisticsController {
         statisticsService.delete(name);
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/donut")
+    public void getDataDonut(@RequestBody String investments)
+    {
+        statisticsService.getDataDonut(investments);
+
+    }
+
 }

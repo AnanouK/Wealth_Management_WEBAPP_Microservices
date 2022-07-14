@@ -1,10 +1,11 @@
 package com.venenium.StatisticsService.Service;
-
 import com.venenium.StatisticsService.Model.Statistics;
 import com.venenium.StatisticsService.Repository.StatisticsRepository;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,5 +63,15 @@ public class StatisticsService {
     public void delete(String name) {
 
         statisticsRepository.deleteAllByName(name);
+    }
+
+    public void getDataDonut(ArrayList<Statistics> investments) {
+
+        String result = "[{";
+
+        for (int i = 0; i < investments.size(); i++) {
+        }
+        System.out.println(investments);
+
     }
 }
