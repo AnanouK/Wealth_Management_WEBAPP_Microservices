@@ -4,8 +4,6 @@ import com.InvestmentDashboard.UserService.Model.User;
 import com.InvestmentDashboard.UserService.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/user")
 public class UserController
@@ -23,9 +21,9 @@ public class UserController
         return userService.adduser(user);
     }
 
-    @GetMapping("/{id}")
-    public Optional<User> finduserbyid(@RequestBody Integer id)
+    @GetMapping("/")
+    public String login(@RequestParam String username, @RequestParam String password)
     {
-        return userService.finduserbyid(id);
+        return userService.login(username,password);
     }
 }

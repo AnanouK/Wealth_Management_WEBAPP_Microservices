@@ -31,7 +31,7 @@ public class InvestmentService {
          float actual = investment.getActual();
          float benefice = actual - capital;
 
-         Investment save = new Investment(investment.getName(), investment.getStart(), investment.getCapital(), investment.getActual(), benefice,false, " ", " ","venenium" );
+         Investment save = new Investment(investment.getName(), investment.getStart(), investment.getCapital(), investment.getActual(), benefice,false, " ", " ", investment.getUsername() );
          return investmentRepository.save(save);
     }
 
@@ -113,7 +113,6 @@ public class InvestmentService {
         newInvestment.setApi(investmentDetails.getApi());
         newInvestment.setApikey(investmentDetails.getApikey());
         newInvestment.setSecret(investmentDetails.getSecret());
-        newInvestment.setUsername(investmentDetails.getUsername());
         newInvestment.setBenefice(investmentDetails.getActual() - investmentDetails.getCapital());
 
         return investmentRepository.save(newInvestment);

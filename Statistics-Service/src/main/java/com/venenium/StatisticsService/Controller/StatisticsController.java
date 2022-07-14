@@ -18,8 +18,8 @@ public class StatisticsController {
     private final StatisticsService statisticsService;
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/getstatisticsof/{investmentName}/{clientUsername}")
-    public String getDataForOne(@PathVariable String investmentName,@PathVariable String clientUsername){
+    @GetMapping("/getstatisticsof")
+    public String getDataForOne(@RequestParam String investmentName,@RequestParam String clientUsername){
 
         return statisticsService.getDataForOne(investmentName,clientUsername);
     }
@@ -38,8 +38,8 @@ public class StatisticsController {
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/delete/{name}")
-    public void delete(@PathVariable String name)
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam String name)
     {
         statisticsService.delete(name);
     }

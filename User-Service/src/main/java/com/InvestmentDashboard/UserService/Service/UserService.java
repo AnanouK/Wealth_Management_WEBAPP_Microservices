@@ -2,6 +2,7 @@ package com.InvestmentDashboard.UserService.Service;
 
 import com.InvestmentDashboard.UserService.Model.User;
 import com.InvestmentDashboard.UserService.Repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,11 +18,25 @@ public class UserService {
 
     public User adduser(User user)
     {
-        return userRepository.save(user);
+        if(userRepository.findByUsername(user.getUsername()) != null)
+        {
+            return null;
+        }
+        else {return userRepository.save(user);}
     }
 
-    public Optional<User> finduserbyid(Integer id)
+    public String login(String username, String password)
     {
-        return userRepository.findById(id);
+        if (userRepository.findByUsername(username) != null){
+            User user = userRepository.findByUsername(username);
+            String passworduser = user.getPassword();
+            if (passworduser.equals(password)){
+                return "success";
+            }
+
+            else return "fail";
+        }
+
+        else return "fail";
     }
 }

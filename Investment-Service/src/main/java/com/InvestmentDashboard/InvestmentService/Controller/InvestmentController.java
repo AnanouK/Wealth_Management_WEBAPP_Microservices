@@ -18,27 +18,18 @@ public class InvestmentController {
 
     private final InvestmentService investmentService;
 
-
     @CrossOrigin(origins = "*")
     @GetMapping("/allinvestments")
     @ResponseStatus(HttpStatus.OK)
-    public List<Investment> allinvestments ()
-    {
-        return investmentService.allinvestments();
-    }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping("/allinvestments/{username}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Investment> allinvestmentsof (@PathVariable String username)
+    public List<Investment> allinvestmentsof (@RequestParam String username)
     {
         return investmentService.allinvestmentsof(username);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/{id}")
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Investment> getinvestmentbyid(@PathVariable   int id)
+    public Optional<Investment> getinvestmentbyid(@RequestParam int id)
     {
         return investmentService.getinvestmentbyid(id);
     }
@@ -92,31 +83,24 @@ public class InvestmentController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/alldata/{username}")
+    @GetMapping("/alldata")
     @ResponseStatus(HttpStatus.OK)
-    public String alldata(@PathVariable String username)
+    public String alldata(@RequestParam String username)
     {
         return investmentService.alldata(username);
     }
 
     @CrossOrigin(origins = "*")
-    @PutMapping ("/update/{id}")
+    @PutMapping ("/update")
     @ResponseStatus(HttpStatus.OK)
-    public Investment updateinvestment(@PathVariable int id, @RequestBody Investment investment)
+    public Investment updateinvestment(@RequestParam int id, @RequestBody Investment investment)
     {
         return investmentService.updateinvestment(id, investment);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/")
-    @ResponseStatus(code = HttpStatus.OK, reason = "OK")
-    public String ok() {
-        return "Class Level HTTP Status Overriden. The HTTP Status will be OK (CODE 200)\n";
-    }
-
-    @CrossOrigin(origins = "*")
-    @DeleteMapping("/delete/{id}")
-    public void deleteInvestment(@PathVariable int id){
+    @DeleteMapping("/delete")
+    public void deleteInvestment(@RequestParam int id){
         investmentService.deleteInvestment(id);
     }
 

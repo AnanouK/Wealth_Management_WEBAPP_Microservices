@@ -49,9 +49,7 @@ public class StatisticsService {
         newstats.setName(statistics.getName());
         newstats.setStart(statistics.getStart());
         newstats.setActual(statistics.getActual());
-
-        if (statistics.getUsername() == "" || statistics.getUsername() == null)
-            newstats.setUsername("venenium");
+        newstats.setUsername(statistics.getUsername());
 
         return statisticsRepository.save(newstats);
     }
