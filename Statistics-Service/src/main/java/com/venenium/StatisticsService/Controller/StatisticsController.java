@@ -48,7 +48,7 @@ public class StatisticsController {
     @GetMapping("/donut")
     public void getDataDonut(@RequestBody String investments)
     {
-        statisticsService.getDataDonut(investments);
+
 
     }
 
