@@ -16,13 +16,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User adduser(User user)
+    public String adduser(User user)
     {
         if(userRepository.findByUsername(user.getUsername()) != null)
         {
-            return null;
+            return "Impossible, nom d'utilisateur existant";
         }
-        else {return userRepository.save(user);}
+        else {
+            userRepository.save(user);
+            return "Création de l'utilisateur avec success";
+        }
     }
 
     public String login(String username, String password)
