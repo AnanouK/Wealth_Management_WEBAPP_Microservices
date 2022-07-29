@@ -4,6 +4,7 @@ import com.InvestmentDashboard.InvestmentService.Model.Investment;
 import com.InvestmentDashboard.InvestmentService.Service.InvestmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class InvestmentController {
     @CrossOrigin(origins = "*")
     @PostMapping("/addinvestment")
     @ResponseStatus(HttpStatus.OK)
-    public Investment addinvestment (@RequestBody Investment investment)
+    public ResponseEntity<String> addinvestment (@RequestBody Investment investment)
     {
         return investmentService.addinvestment(investment);
     }
@@ -102,6 +103,11 @@ public class InvestmentController {
     @DeleteMapping("/delete")
     public void deleteInvestment(@RequestParam int id){
         investmentService.deleteInvestment(id);
+    }
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/delete/all")
+    public void deleteAll(@RequestParam String username){
+        investmentService.deleteAll(username);
     }
 
 
