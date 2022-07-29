@@ -5,6 +5,7 @@ import com.venenium.StatisticsService.Service.StatisticsService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class StatisticsController {
     }
     @CrossOrigin(origins = "*")
     @PostMapping("/addstatistic")
-    public Statistics addStatistic(@RequestBody Statistics statistics)
+    public ResponseEntity<String> addStatistic(@RequestBody Statistics statistics)
     {
         return statisticsService.addStatistic(statistics);
     }
@@ -39,9 +40,23 @@ public class StatisticsController {
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/delete")
-    public void delete(@RequestParam String name)
+    public void deleteAllWithName(@RequestParam String name, @RequestParam String username)
     {
-        statisticsService.delete(name);
+        statisticsService.delete(name,username);
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/delete/all")
+    public void deleteAll(@RequestParam String username)
+    {
+        statisticsService.deleteAll(username);
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/delete/onestat")
+    public void deleteOne(@RequestParam int id)
+    {
+        statisticsService.deleteStatistic(id);
     }
 
     @CrossOrigin(origins = "*")

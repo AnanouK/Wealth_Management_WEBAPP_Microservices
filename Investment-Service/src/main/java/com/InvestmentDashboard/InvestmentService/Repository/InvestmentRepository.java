@@ -11,4 +11,8 @@ public interface InvestmentRepository extends JpaRepository <Investment, Integer
 
 
     List<Investment> findAllByUsername(String username);
+
+    List<Investment> findAllByNameAndUsername(String name, String Username);
+
+    void deleteByUsername(String username);
 }

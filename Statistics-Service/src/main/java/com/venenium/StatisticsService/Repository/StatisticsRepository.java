@@ -11,7 +11,9 @@ public interface StatisticsRepository extends JpaRepository <Statistics, Integer
 
     List<Statistics> findByNameAndUsername(String Name, String Username);
 
-    void deleteAllByName(String Name);
+    void deleteByNameAndUsername(String Name, String Username);
+
+    void deleteByUsername(String username);
 }
 
 
