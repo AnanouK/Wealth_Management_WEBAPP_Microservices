@@ -2,7 +2,10 @@ package com.InvestmentDashboard.InvestmentService.Service;
 
 import com.InvestmentDashboard.InvestmentService.Model.Investment;
 import com.InvestmentDashboard.InvestmentService.Repository.InvestmentRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.text.DecimalFormat;
@@ -25,14 +28,22 @@ public class InvestmentService {
     }
 
     // Create One Investment, the benefice is calculate automatically
-    public Investment addinvestment(Investment investment) {
+    public ResponseEntity<String> addinvestment(Investment investment) {
+
+         List<Investment> getName = investmentRepository.findAllByNameAndUsername(investment.getName(), investment.getUsername());
+         if (!getName.isEmpty())
+         {
+            return new ResponseEntity<String>(HttpStatus.METHOD_NOT_ALLOWED);
+         }
+
 
          float capital = investment.getCapital();
          float actual = investment.getActual();
          float benefice = actual - capital;
 
          Investment save = new Investment(investment.getName(), investment.getStart(), investment.getCapital(), investment.getActual(), benefice,false, " ", " ", investment.getUsername() );
-         return investmentRepository.save(save);
+         investmentRepository.save(save);
+         return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
     // Return One Investment with the ID given
@@ -126,5 +137,9 @@ public class InvestmentService {
 
     public List<Investment> allinvestmentsof(String username) {
         return investmentRepository.findAllByUsername(username);
+    }
+    @Transactional
+    public void deleteAll(String username) {
+        investmentRepository.deleteByUsername(username);
     }
 }
