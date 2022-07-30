@@ -26,8 +26,8 @@ public class StatisticsService {
         List<Statistics> result = statisticsRepository.findByNameAndUsername(investmentName, clientUsername);
         String finalvar = "[";
 
-        for (int j = 0; j < result.size() ; j++) {
-            if (j == result.size()-1){
+        for (int j = result.size()-1; j >= 0 ; j--) {
+            if (j == 0){
                 finalvar += "{\"Date\":";
                 finalvar += "\"" + result.get(j).getStart() + "\"" + ",";
                 finalvar += "\"Capital\":";
