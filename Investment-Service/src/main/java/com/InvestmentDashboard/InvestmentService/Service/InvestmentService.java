@@ -36,7 +36,6 @@ public class InvestmentService {
             return new ResponseEntity<String>(HttpStatus.METHOD_NOT_ALLOWED);
          }
 
-
          float capital = investment.getCapital();
          float actual = investment.getActual();
          float benefice = actual - capital;
@@ -57,8 +56,11 @@ public class InvestmentService {
     {
         float result = 0;
         List<Investment> liste =  investmentRepository.findAll();
-        for (int j = 0; j < liste.size() ; j++) {
-            result += liste.get(j).getCapital();
+        if (!liste.isEmpty()) {
+            for (int j = 0; j < liste.size(); j++) {
+                result += liste.get(j).getCapital();
+            }
+            return result;
         }
         return result;
     }
@@ -88,7 +90,8 @@ public class InvestmentService {
     // Return the benefice of one investment
     public float getbenefice(int id)
     {
-        return (investmentRepository.findById(id).get().getActual() - investmentRepository.findById(id).get().getCapital());
+       Optional<Investment> investment = investmentRepository.findById(id);
+        return (investment.get().getActual() - investment.get().getCapital());
     }
 
 
@@ -110,7 +113,7 @@ public class InvestmentService {
 
         float pourcentageallbenefice = ((actual - capital) / capital) * 100;
 
-        return"{ \"base\":" + capital +", \"actual\":" + actual+", \"benefice\":"+benefice+", \"poucentageallbenefice\":"+pourcentageallbenefice+ "}";
+        return"{ \"base\":" + capital +", \"actual\":" + actual+", \"benefice\":"+benefice+", \"pourcentageallbenefice\":"+pourcentageallbenefice+ "}";
 
     }
 
