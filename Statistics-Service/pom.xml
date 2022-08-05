@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.InvestmentDashboard</groupId>
-	<artifactId>Investment-Service</artifactId>
+	<artifactId>Statistics-Service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Investment-Service</name>
+	<name>Statistics-Service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>18</java.version>
