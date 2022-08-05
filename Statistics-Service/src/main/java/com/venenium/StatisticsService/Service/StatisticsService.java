@@ -71,6 +71,10 @@ public class StatisticsService {
                  newstats.setName(statistics.getName());
                  newstats.setStart(statistics.getStart());
                  newstats.setActual(statistics.getActual());
+                 newstats.setCapital(statistics.getCapital());
+                 newstats.setApi(statistics.getApi());
+                 newstats.setApikey(statistics.getApikey());
+                 newstats.setSecret(statistics.getSecret());
                  newstats.setUsername(statistics.getUsername());
                  statisticsRepository.save(newstats);
                  return new ResponseEntity<String>(HttpStatus.CREATED);
@@ -84,6 +88,10 @@ public class StatisticsService {
              newstats.setName(statistics.getName());
              newstats.setStart(statistics.getStart());
              newstats.setActual(statistics.getActual());
+             newstats.setCapital(statistics.getCapital());
+             newstats.setApi(statistics.getApi());
+             newstats.setApikey(statistics.getApikey());
+             newstats.setSecret(statistics.getSecret());
              newstats.setUsername(statistics.getUsername());
              statisticsRepository.save(newstats);
              return new ResponseEntity<String>(HttpStatus.CREATED);
@@ -101,15 +109,6 @@ public class StatisticsService {
         statisticsRepository.deleteByNameAndUsername(name,username);
     }
 
-    public void getDataDonut(ArrayList<Statistics> investments) {
-
-        String result = "[{";
-
-        for (int i = 0; i < investments.size(); i++) {
-        }
-        System.out.println(investments);
-
-    }
     @Transactional
     public void deleteStatistic(int id) {
         statisticsRepository.deleteById(id);
