@@ -21,11 +21,33 @@ public class Statistics {
 
     private String name;
     private String start;
-    private String capital;
+    private float capital;
     private float actual;
-    private Boolean api;
-    private String apikey;
-    private String secret;
+    private Boolean api = false;
+    private String apikey = "";
+    private String secret = "";
     private String username;
+
+    public Statistics(String name, String start, float capital, float actual,boolean api, String apikey, String secret, String username) {
+        this.name = name;
+        this.start = start;
+        this.capital = capital;
+        this.actual = actual;
+        this.api = api;
+        this.apikey = apikey;
+        this.secret = secret;
+        this.username = username;
+    }
+
+    public Statistics(String name, String start, float capital, float actual, String username) {
+        this.name = name;
+        this.start = start;
+        this.capital = capital;
+        this.actual = actual;
+        this.api = false;
+        this.apikey = "";
+        this.secret = "";
+        this.username = username;
+    }
 
 }
