@@ -23,7 +23,7 @@ class StatisticsRepositoryTest {
     void findByNameAndUsername() {
         //given
         Statistics statistic = new Statistics(1,
-                "name","2022-6-13", 1000F,1500,false,"","","jack"
+                "name","2022-6-13", "1000F",1500,false,"","","jack"
         );
         underTest.save(statistic);
         //when
@@ -36,7 +36,7 @@ class StatisticsRepositoryTest {
     void deleteByNameAndUsername() {
         //given
         Statistics statistic = new Statistics(1,
-                "name","2022-6-13", 1000F,1500,false,"","","jack"
+                "name","2022-6-13", "1000F",1500,false,"","","jack"
         );
         underTest.save(statistic);
         //when
@@ -49,7 +49,7 @@ class StatisticsRepositoryTest {
     void deleteByUsername() {
         //given
         Statistics statistic = new Statistics(1,
-                "name","2022-6-13", 1000F,1500,false,"","","jack"
+                "name","2022-6-13", "1000F",1500,false,"","","jack"
         );
         underTest.save(statistic);
         //when

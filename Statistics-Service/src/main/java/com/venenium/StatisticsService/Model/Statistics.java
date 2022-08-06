@@ -21,14 +21,14 @@ public class Statistics {
 
     private String name;
     private String start;
-    private float capital;
+    private String capital;
     private float actual;
     private Boolean api = false;
     private String apikey = "";
     private String secret = "";
     private String username;
 
-    public Statistics(String name, String start, float capital, float actual,boolean api, String apikey, String secret, String username) {
+    public Statistics(String name, String start, String capital, float actual,boolean api, String apikey, String secret, String username) {
         this.name = name;
         this.start = start;
         this.capital = capital;
@@ -39,7 +39,7 @@ public class Statistics {
         this.username = username;
     }
 
-    public Statistics(String name, String start, float capital, float actual, String username) {
+    public Statistics(String name, String start, String capital, float actual, String username) {
         this.name = name;
         this.start = start;
         this.capital = capital;

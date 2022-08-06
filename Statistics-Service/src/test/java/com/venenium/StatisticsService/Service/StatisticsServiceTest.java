@@ -43,10 +43,10 @@ class StatisticsServiceTest {
         String name = "test";
         String username = "jack";
         Statistics statistics1 = new Statistics(1,
-                name,"2022-6-13", 1000.0F, 1500.0F,false,"","",username
+                name,"2022-6-13", "1000.0F", 1500.0F,false,"","",username
         );
         Statistics statistics2 = new Statistics(2,
-                name,"2022-6-14", 1000.0F, 1600.0F,false,"","",username
+                name,"2022-6-14", "1000.0F", 1600.0F,false,"","",username
         );
         List<Statistics> listeofinvestments = new ArrayList<Statistics>();
         listeofinvestments.add(statistics1);
@@ -67,10 +67,10 @@ class StatisticsServiceTest {
         String name = "test";
         String username = "jack";
         Statistics alreadysaved = new Statistics(1,
-                name,"2022-6-13", 1000.0F, 1500.0F,false,"","",username
+                name,"2022-6-13", "1000.0F", 1500.0F,false,"","",username
         );
         Statistics newone = new Statistics(2,
-                name,"2022-6-13", 1200.0F, 1600.0F,false,"","",username
+                name,"2022-6-13", "1200.0F", 1600.0F,false,"","",username
         );
         List<Statistics> listeofinvestments = new ArrayList<Statistics>();
         listeofinvestments.add(alreadysaved);
@@ -95,7 +95,7 @@ class StatisticsServiceTest {
         String name = "test";
         String username = "jack";
         Statistics newone = new Statistics(
-                name,"2022-6-13", 1200.0F, 1600.0F,false,"","",username
+                name,"2022-6-13", "1200.0F", 1600.0F,false,"","",username
         );
         List<Statistics> listeofinvestments = new ArrayList<Statistics>();
 
@@ -118,10 +118,10 @@ class StatisticsServiceTest {
         String name = "test";
         String username = "jack";
         Statistics alreadysaved = new Statistics(
-                name,"2022-6-12", 1000.0F, 1500.0F,false,"","",username
+                name,"2022-6-12", "1000.0F", 1500.0F,false,"","",username
         );
         Statistics newone = new Statistics(
-                name,"2022-6-13", 1200.0F, 1600.0F,false,"","",username
+                name,"2022-6-13", "1200.0F", 1600.0F,false,"","",username
         );
         List<Statistics> listeofinvestments = new ArrayList<Statistics>();
         listeofinvestments.add(alreadysaved);
