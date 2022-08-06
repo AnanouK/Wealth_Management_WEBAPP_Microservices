@@ -12,7 +12,7 @@ Concernant le code :
 
 - Les microservices Investment-Service et Statistics-Service ne communiquent pas entre eux afin d'optimiser au maximum les bénéfices de l'architecture microservice, pour cela la base de données du service Statistics contient la base de données Investment (duplication des données). De ce fait Statistics utilise uniquement ses propres données et est donc indépendant.
 
-- Chaque méthode est soumise à un test unitaire via JUnit et Mockito afin d'en vérifier la fonctionnalité (En cours).
+- Chaque méthode est soumise à un test unitaire via JUnit et Mockito afin d'en vérifier la fonctionnalité.
 
 Architecture kubernetes du projet :
 
