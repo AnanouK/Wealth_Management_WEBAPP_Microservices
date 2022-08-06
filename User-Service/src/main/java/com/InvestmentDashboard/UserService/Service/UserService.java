@@ -1,6 +1,6 @@
 package com.InvestmentDashboard.UserService.Service;
 
-import com.InvestmentDashboard.UserService.Model.User;
+import com.InvestmentDashboard.UserService.Model.Users;
 import com.InvestmentDashboard.UserService.Repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String adduser(User user)
+    public String adduser(Users user)
     {
         if(userRepository.findByUsername(user.getUsername()) != null)
         {
@@ -31,7 +31,7 @@ public class UserService {
     public String login(String username, String password)
     {
         if (userRepository.findByUsername(username) != null){
-            User user = userRepository.findByUsername(username);
+            Users user = userRepository.findByUsername(username);
             String passworduser = user.getPassword();
             if (passworduser.equals(password)){
                 return "success";

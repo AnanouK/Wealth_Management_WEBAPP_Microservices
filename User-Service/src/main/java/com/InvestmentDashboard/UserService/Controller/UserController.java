@@ -1,6 +1,6 @@
 package com.InvestmentDashboard.UserService.Controller;
 
-import com.InvestmentDashboard.UserService.Model.User;
+import com.InvestmentDashboard.UserService.Model.Users;
 import com.InvestmentDashboard.UserService.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public class UserController
     }
     @CrossOrigin(origins = "*")
     @PostMapping("/add")
-    public String adduser (@RequestBody User user)
+    public String adduser (@RequestBody Users user)
     {
         return userService.adduser(user);
     }
