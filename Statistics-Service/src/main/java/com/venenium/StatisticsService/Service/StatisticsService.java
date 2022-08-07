@@ -28,14 +28,18 @@ public class StatisticsService {
 
         for (int j = result.size()-1; j >= 0 ; j--) {
             if (j == 0){
-                finalvar += "{\"Date\":";
+                finalvar += "{\"Id\":";
+                finalvar += "\"" + result.get(j).getId() + "\"" + ",";
+                finalvar += "\"Date\":";
                 finalvar += "\"" + result.get(j).getStart() + "\"" + ",";
                 finalvar += "\"Capital\":";
                 finalvar += String.valueOf(result.get(j).getActual()) + "}";
             }
 
             else {
-                finalvar += "{\"Date\":";
+                finalvar += "{\"Id\":";
+                finalvar += "\"" + result.get(j).getId() + "\"" + ",";
+                finalvar += "\"Date\":";
                 finalvar += "\"" + result.get(j).getStart() + "\"" + ",";
                 finalvar += "\"Capital\":";
                 finalvar += String.valueOf(result.get(j).getActual()) + "},";

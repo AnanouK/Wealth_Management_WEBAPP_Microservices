@@ -57,7 +57,7 @@ class StatisticsServiceTest {
         String response = underTest.getDataForOne(name,username);
         //then
         verify(statisticsRepository).findByNameAndUsername(name,username);
-        assertEquals(response, "[{\"Date\":"+"\""+statistics2.getStart()+"\","+"\"Capital\":"+statistics2.getActual()+"},"+ "{\"Date\":"+"\""+statistics1.getStart()+"\","+"\"Capital\":"+statistics1.getActual()+"}"+ "]");
+        assertEquals(response, "[{\"Id\":"+"\""+statistics2.getId()+"\","+"\"Date\":"+"\""+statistics2.getStart()+"\","+"\"Capital\":"+statistics2.getActual()+"},"+ "{\"Id\":"+"\""+ statistics1.getId()+"\","+"\"Date\":"+"\""+statistics1.getStart()+"\","+"\"Capital\":"+statistics1.getActual()+"}"+ "]");
 
     }
 
