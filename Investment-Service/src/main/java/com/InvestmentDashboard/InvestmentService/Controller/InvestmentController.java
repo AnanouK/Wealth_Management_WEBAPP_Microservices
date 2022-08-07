@@ -54,9 +54,9 @@ public class InvestmentController {
     @CrossOrigin(origins = "*")
     @GetMapping("/allactual")
     @ResponseStatus(HttpStatus.OK)
-    public float allactual()
+    public float allactual(@RequestParam String username)
     {
-        return investmentService.allactual();
+        return investmentService.allactual(username);
     }
 
     @CrossOrigin(origins = "*")

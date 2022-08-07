@@ -66,10 +66,10 @@ public class InvestmentService {
     }
 
     // Return The actual money of all investments
-    public float allactual()
+    public float allactual(String username)
     {
         float result = 0;
-        List<Investment> liste =  investmentRepository.findAll();
+        List<Investment> liste =  investmentRepository.findAllByUsername(username);
         for (int j = 0; j < liste.size() ; j++) {
             result += liste.get(j).getActual();
         }

@@ -132,19 +132,20 @@ class InvestmentServiceTest {
     @Test
     void allactual() {
         //given
+        String username = "jack";
         Investment investment1 = new Investment(
-                "name1","2022-6-13",1000,1500,0,false,"","","jack"
+                "name1","2022-6-13",1000,1500,0,false,"","",username
         );
         Investment investment2 = new Investment(
-                "name2","2022-6-13",1000,2000,0,false,"","","jack"
+                "name2","2022-6-13",1000,2000,0,false,"","",username
         );
         List<Investment> listeofinvestments = new ArrayList<Investment>();
         listeofinvestments.add(investment1);
         listeofinvestments.add(investment2);
 
-        given(investmentRepository.findAll()).willReturn(listeofinvestments);
+        given(investmentRepository.findAllByUsername(username)).willReturn(listeofinvestments);
         //when
-        float response = underTest.allactual();
+        float response = underTest.allactual(username);
         //then
         assertEquals(response,investment1.getActual()+investment2.getActual());
     }
