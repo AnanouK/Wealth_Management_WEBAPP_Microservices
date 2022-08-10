@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Statistics-Service" />
         <module name="API-Gateway" />
+        <module name="Calculator-Service" />
         <module name="Registry-Service" />
         <module name="User-Service" />
         <module name="Investment-Service" />
@@ -16,6 +17,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="API-Gateway" target="17" />
+      <module name="Calculator-Service" target="18" />
       <module name="Investment-Service" target="18" />
       <module name="Registry-Service" target="17" />
       <module name="Statistics-Service" target="18" />
@@ -25,6 +27,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="API-Gateway" options="-parameters" />
+      <module name="Calculator-Service" options="-parameters" />
       <module name="Investment-Service" options="-parameters" />
       <module name="Registry-Service" options="-parameters" />
       <module name="Statistics-Service" options="-parameters" />

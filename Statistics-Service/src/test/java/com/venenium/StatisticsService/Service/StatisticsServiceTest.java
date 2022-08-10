@@ -42,22 +42,23 @@ class StatisticsServiceTest {
         //given
         String name = "test";
         String username = "jack";
-        Statistics statistics1 = new Statistics(1,
+        Statistics statistics1 = new Statistics(32,
                 name,"2022-6-13", "1000.0F", 1500.0F,false,"","",username
         );
-        Statistics statistics2 = new Statistics(2,
+        Statistics statistics2 = new Statistics(44,
                 name,"2022-6-14", "1000.0F", 1600.0F,false,"","",username
         );
+
         List<Statistics> listeofinvestments = new ArrayList<Statistics>();
         listeofinvestments.add(statistics1);
         listeofinvestments.add(statistics2);
 
-        given(statisticsRepository.findByNameAndUsername(name,username)).willReturn(listeofinvestments);
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
         //when
         String response = underTest.getDataForOne(name,username);
         //then
-        verify(statisticsRepository).findByNameAndUsername(name,username);
-        assertEquals(response, "[{\"Id\":"+"\""+statistics2.getId()+"\","+"\"Date\":"+"\""+statistics2.getStart()+"\","+"\"Capital\":"+statistics2.getActual()+"},"+ "{\"Id\":"+"\""+ statistics1.getId()+"\","+"\"Date\":"+"\""+statistics1.getStart()+"\","+"\"Capital\":"+statistics1.getActual()+"}"+ "]");
+        verify(statisticsRepository).findByNameAndUsernameOrderByIdAsc(name,username);
+        assertEquals(response, "[{\"Id\":"+"\""+statistics1.getId()+"\","+"\"Date\":"+"\""+statistics1.getStart()+"\","+"\"Capital\":"+statistics1.getActual()+"},"+ "{\"Id\":"+"\""+ statistics2.getId()+"\","+"\"Date\":"+"\""+statistics2.getStart()+"\","+"\"Capital\":"+statistics2.getActual()+"}"+ "]");
 
     }
 

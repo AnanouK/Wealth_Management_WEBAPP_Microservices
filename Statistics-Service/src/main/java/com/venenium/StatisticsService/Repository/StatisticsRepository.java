@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface StatisticsRepository extends JpaRepository <Statistics, Integer> {
 
+    List<Statistics> findByNameAndUsernameOrderByIdAsc(String Name, String Username);
     List<Statistics> findByNameAndUsername(String Name, String Username);
 
     void deleteByNameAndUsername(String Name, String Username);

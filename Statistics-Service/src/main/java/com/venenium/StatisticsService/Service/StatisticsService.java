@@ -23,11 +23,11 @@ public class StatisticsService {
 
     public String getDataForOne(String investmentName, String clientUsername) {
 
-        List<Statistics> result = statisticsRepository.findByNameAndUsername(investmentName, clientUsername);
+        List<Statistics> result = statisticsRepository.findByNameAndUsernameOrderByIdAsc(investmentName, clientUsername);
         String finalvar = "[";
 
-        for (int j = result.size()-1; j >= 0 ; j--) {
-            if (j == 0){
+        for (int j = 0; j <= result.size()-1 ; j++) {
+            if (j == result.size()-1){
                 finalvar += "{\"Id\":";
                 finalvar += "\"" + result.get(j).getId() + "\"" + ",";
                 finalvar += "\"Date\":";
