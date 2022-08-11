@@ -54,7 +54,7 @@ public class StatisticsService {
 
     public ResponseEntity<String> addStatistic(Statistics statistics) {
 
-         List<Statistics> getData = statisticsRepository.findByNameAndUsername(statistics.getName(),statistics.getUsername());
+         List<Statistics> getData = statisticsRepository.findByNameAndUsernameOrderByIdAsc(statistics.getName(),statistics.getUsername());
 
          //If the row already exist with the same date, we will change it and replace it instead of create a new one
          if (getData.size()!=0)

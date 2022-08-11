@@ -76,7 +76,7 @@ class StatisticsServiceTest {
         List<Statistics> listeofinvestments = new ArrayList<Statistics>();
         listeofinvestments.add(alreadysaved);
 
-        given(statisticsRepository.findByNameAndUsername(name,username)).willReturn(listeofinvestments);
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
         //when
         underTest.addStatistic(newone);
         //then
@@ -100,7 +100,7 @@ class StatisticsServiceTest {
         );
         List<Statistics> listeofinvestments = new ArrayList<Statistics>();
 
-        given(statisticsRepository.findByNameAndUsername(name,username)).willReturn(listeofinvestments);
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
         //when
         underTest.addStatistic(newone);
         //then
@@ -127,7 +127,7 @@ class StatisticsServiceTest {
         List<Statistics> listeofinvestments = new ArrayList<Statistics>();
         listeofinvestments.add(alreadysaved);
 
-        given(statisticsRepository.findByNameAndUsername(name,username)).willReturn(listeofinvestments);
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
         //when
         underTest.addStatistic(newone);
         //then
