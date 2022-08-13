@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalculatorService {
 
-    public String resultList (int times, float initialcapital, float pourcentage, float monthlymoney)
+    public String resultList (int times, float initialcapital, float pourcentage, float monthlymoney, float goal)
     {
         String finalvar = "[";
         float result  = initialcapital;
@@ -13,6 +13,7 @@ public class CalculatorService {
         float allInvest = initialcapital;
         float allWon = 0;
         float monthEarn = initialcapital;
+        int goalAchieveMonth = 0;
 
         for (int i = 0; i < times*12 ; i++) {
             result = (result+monthlymoney) * (1 + (pourcentage/12));
@@ -21,12 +22,16 @@ public class CalculatorService {
             allWon = result-allInvest;
             monthEarn =  allWon - lastallwon ;
 
+            if (monthEarn >= goal && goalAchieveMonth == 0)
+            {
+                goalAchieveMonth = i;
+            }
 
-            if (i == times*12-1){
+            if (i == (times*12)-1) {
                 finalvar += "{\"Mois\":";
-                finalvar += "\"" + (i+1) + "\"" + ",";
+                finalvar += "\"" + (i + 1) + "\"" + ",";
                 finalvar += "\"allInvest\":";
-                finalvar += "\"" + (int)allInvest + "\"" + ",";
+                finalvar += "\"" + (int) allInvest + "\"" + ",";
                 finalvar += "\"allWon\":";
                 finalvar += "\"" + allWon + "\"" + ",";
                 finalvar += "\"monthEarn\":";
@@ -34,11 +39,12 @@ public class CalculatorService {
                 finalvar += "\"Total\":";
                 finalvar += result + "}";
             }
-            else {
+            else
+            {
                 finalvar += "{\"Mois\":";
-                finalvar += "\"" + (i+1) + "\"" + ",";
+                finalvar += "\"" + (i + 1) + "\"" + ",";
                 finalvar += "\"allInvest\":";
-                finalvar += "\"" + (int)allInvest + "\"" + ",";
+                finalvar += "\"" + (int) allInvest + "\"" + ",";
                 finalvar += "\"allWon\":";
                 finalvar += "\"" + allWon + "\"" + ",";
                 finalvar += "\"monthEarn\":";
@@ -47,6 +53,11 @@ public class CalculatorService {
                 finalvar += result + "},";
             }
         }
+
+        if (goalAchieveMonth != 0) {
+            finalvar += ",{\"Years\":" + "\"" + (int)goalAchieveMonth/12 + "\"" + "}," + "{\"Months\":" + "\"" + (int)goalAchieveMonth%12 + "\"" + "}";
+        }
+
         finalvar += "]";
         return finalvar;
     }
