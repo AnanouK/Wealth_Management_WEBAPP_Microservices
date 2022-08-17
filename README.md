@@ -23,6 +23,7 @@ Concernant kubernetes
 - le backend et le frontend sont sur kubernetes et communiquent via un ingress controleur.
 - Chaque microservices posséde 2 replicas (2 pods) afin d'assurer un fonctionnement optimal et une bonne répartition des charges (Sauf les bases de données).
 - Chaque microservices possédent ça propre base de données héberger par google kubernetes (S'il est nécessaire d'en avoir une).
+- Chaque microservices possède un Service en ClusterIp afin d'augmenter la sécurité, seul l'ingress controller est en LoadBalancer.
 
 Pistes d'améliorations et tâches en cours
 
