@@ -8,7 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,46 +26,57 @@ public class StatisticsService {
 
     public String getDataForOne(String investmentName, String clientUsername) {
 
-        List<Statistics> result = statisticsRepository.findByNameAndUsernameOrderByIdAsc(investmentName, clientUsername);
-        String finalvar = "[";
+        List<Statistics> allStatistics = statisticsRepository.findByNameAndUsernameOrderByIdAsc(investmentName, clientUsername);
+        String response = "[";
+        float lastActual = 0;
 
-        for (int j = 0; j <= result.size()-1 ; j++) {
-            if (j == result.size()-1){
-                finalvar += "{\"Id\":";
-                finalvar += "\"" + result.get(j).getId() + "\"" + ",";
-                finalvar += "\"Date\":";
-                finalvar += "\"" + result.get(j).getStart() + "\"" + ",";
-                finalvar += "\"Capital\":";
-                finalvar += String.valueOf(result.get(j).getActual()) + "}";
+        for (int j = 0; j <= allStatistics.size()-1 ; j++) {
+            if (j == allStatistics.size()-1){
+
+                response += "{\"Id\":";
+                response += "\"" + allStatistics.get(j).getId() + "\"" + ",";
+                response += "\"Date\":";
+                response += "\"" + allStatistics.get(j).getStart() + "\"" + ",";
+                response += "\"Capital\":";
+                response += String.valueOf(allStatistics.get(j).getActual()) + ",";
+                response += "\"Pourcentage\":";
+                response +=  + (allStatistics.get(j).getActual() - lastActual)/allStatistics.get(j).getActual() * 100 + "}";
+                lastActual = allStatistics.get(j).getActual();
             }
 
             else {
-                finalvar += "{\"Id\":";
-                finalvar += "\"" + result.get(j).getId() + "\"" + ",";
-                finalvar += "\"Date\":";
-                finalvar += "\"" + result.get(j).getStart() + "\"" + ",";
-                finalvar += "\"Capital\":";
-                finalvar += String.valueOf(result.get(j).getActual()) + "},";
+                if (j == 0)
+                {
+                    lastActual = allStatistics.get(j).getActual();
+                }
+                response += "{\"Id\":";
+                response += "\"" + allStatistics.get(j).getId() + "\"" + ",";
+                response += "\"Date\":";
+                response += "\"" + allStatistics.get(j).getStart() + "\"" + ",";
+                response += "\"Capital\":";
+                response += String.valueOf(allStatistics.get(j).getActual()) + ",";
+                response += "\"Pourcentage\":";
+                response +=  + (allStatistics.get(j).getActual() - lastActual)/allStatistics.get(j).getActual() * 100 + "},";
+                lastActual = allStatistics.get(j).getActual();
             }
 
         }
-        finalvar +="]";
+        response +="]";
 
-        return finalvar;
-
+        return response;
     }
 
     public ResponseEntity<String> addStatistic(Statistics statistics) {
 
-         List<Statistics> getData = statisticsRepository.findByNameAndUsernameOrderByIdAsc(statistics.getName(),statistics.getUsername());
+         List<Statistics> allStatistics = statisticsRepository.findByNameAndUsernameOrderByIdAsc(statistics.getName(),statistics.getUsername());
 
          //If the row already exist with the same date, we will change it and replace it instead of create a new one
-         if (getData.size()!=0)
+         if (allStatistics.size()!=0)
          {
-             if (getData.get(getData.size()-1).getStart().equals(statistics.getStart()))
+             if (allStatistics.get(allStatistics.size()-1).getStart().equals(statistics.getStart()))
              {
-                 Statistics lastStat = getData.get(getData.size()-1);
-                 lastStat.setId(getData.get(getData.size()-1).getId());
+                 Statistics lastStat = allStatistics.get(allStatistics.size()-1);
+                 lastStat.setId(allStatistics.get(allStatistics.size()-1).getId());
                  lastStat.setActual(statistics.getActual());
                  lastStat.setCapital(statistics.getCapital());
                  statisticsRepository.save(lastStat);
@@ -102,16 +116,10 @@ public class StatisticsService {
          }
     }
 
-    public List<Statistics> allStatistics() {
-
-        return statisticsRepository.findAll();
-    }
+    public List<Statistics> allStatistics() {return statisticsRepository.findAll();}
 
     @Transactional
-    public void delete(String name, String username) {
-
-        statisticsRepository.deleteByNameAndUsername(name,username);
-    }
+    public void delete(String name, String username) {statisticsRepository.deleteByNameAndUsername(name,username);}
 
     @Transactional
     public void deleteStatistic(int id) {
@@ -120,5 +128,32 @@ public class StatisticsService {
 
     @Transactional
     public void deleteAll(String username) { statisticsRepository.deleteByUsername(username);
+    }
+
+    public List<Statistics> addDataForEmptyDatesForGlobalChart(String username, String name) {
+
+        List<Statistics> allStatistics = statisticsRepository.findByNameAndUsernameOrderByIdAsc(name, username);
+        List<Statistics> response = new ArrayList<>();
+
+        if (allStatistics.size() > 0)
+        {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+            LocalDateTime now = LocalDateTime.now();
+            int numberOfTheDayOfTheMonth = now.getDayOfMonth();
+
+            Statistics last = allStatistics.get(allStatistics.size() - 1);
+            String[] parsing = last.getStart().split("-");
+
+            if (Integer.parseInt(parsing[0]) != numberOfTheDayOfTheMonth && now.getMonthValue() == Integer.parseInt(parsing[1]))
+            {
+                for (int i = 0; i < numberOfTheDayOfTheMonth - Integer.parseInt(parsing[0]); i++)
+                {
+                    Statistics newOne = new Statistics(last.getName(), (numberOfTheDayOfTheMonth - (numberOfTheDayOfTheMonth - Integer.parseInt(parsing[0])) + i + 1) + "-" + now.getMonthValue() + "-" + now.getYear(), last.getCapital(), last.getActual(), last.getApi(), last.getApikey(), last.getSecret(), last.getUsername());
+                    addStatistic(newOne);
+                    response.add(newOne);
+                }
+            }
+        }
+        return response;
     }
 }

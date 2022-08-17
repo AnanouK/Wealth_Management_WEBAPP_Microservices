@@ -60,11 +60,9 @@ public class StatisticsController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/donut")
-    public void getDataDonut(@RequestBody String investments)
-    {
+    @GetMapping("/checkempty")
+    public List<Statistics> addDataForEmptyDates(@RequestParam String username, @RequestParam String name) {return statisticsService.addDataForEmptyDatesForGlobalChart(username,name);}
 
 
-    }
 
 }
