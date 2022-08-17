@@ -5,22 +5,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalculatorService {
 
-    public String resultList (int times, float initialcapital, float pourcentage, float monthlymoney, float goal)
+    public String resultList (int times, float initialCapital, float pourcentage, float monthlyMoney, float goal)
     {
-        String finalvar = "[";
-        float result  = initialcapital;
+        String response = "[";
+        float result  = initialCapital;
         pourcentage = pourcentage/100;
-        float allInvest = initialcapital;
+        float allInvest = initialCapital;
         float allWon = 0;
-        float monthEarn = initialcapital;
+        float monthEarn = initialCapital;
         int goalAchieveMonth = 0;
 
-        for (int i = 0; i < times*12 ; i++) {
-            result = (result+monthlymoney) * (1 + (pourcentage/12));
-            allInvest += monthlymoney;
-            float lastallwon = allWon;
+        for (int i = 0; i < times*12 ; i++)
+        {
+            result = (result+monthlyMoney) * (1 + (pourcentage/12));
+            allInvest += monthlyMoney;
+            float lastAllWon = allWon;
             allWon = result-allInvest;
-            monthEarn =  allWon - lastallwon ;
+            monthEarn =  allWon - lastAllWon ;
 
             if (monthEarn >= goal && goalAchieveMonth == 0)
             {
@@ -28,37 +29,38 @@ public class CalculatorService {
             }
 
             if (i == (times*12)-1) {
-                finalvar += "{\"Mois\":";
-                finalvar += "\"" + (i + 1) + "\"" + ",";
-                finalvar += "\"allInvest\":";
-                finalvar += "\"" + (int) allInvest + "\"" + ",";
-                finalvar += "\"allWon\":";
-                finalvar += "\"" + allWon + "\"" + ",";
-                finalvar += "\"monthEarn\":";
-                finalvar += "\"" + monthEarn + "\"" + ",";
-                finalvar += "\"Total\":";
-                finalvar += result + "}";
+                response += "{\"Mois\":";
+                response += "\"" + (i + 1) + "\"" + ",";
+                response += "\"allInvest\":";
+                response += "\"" + (int) allInvest + "\"" + ",";
+                response += "\"allWon\":";
+                response += "\"" + allWon + "\"" + ",";
+                response += "\"monthEarn\":";
+                response += "\"" + monthEarn + "\"" + ",";
+                response += "\"Total\":";
+                response += result + "}";
             }
             else
             {
-                finalvar += "{\"Mois\":";
-                finalvar += "\"" + (i + 1) + "\"" + ",";
-                finalvar += "\"allInvest\":";
-                finalvar += "\"" + (int) allInvest + "\"" + ",";
-                finalvar += "\"allWon\":";
-                finalvar += "\"" + allWon + "\"" + ",";
-                finalvar += "\"monthEarn\":";
-                finalvar += "\"" + monthEarn + "\"" + ",";
-                finalvar += "\"Total\":";
-                finalvar += result + "},";
+                response += "{\"Mois\":";
+                response += "\"" + (i + 1) + "\"" + ",";
+                response += "\"allInvest\":";
+                response += "\"" + (int) allInvest + "\"" + ",";
+                response += "\"allWon\":";
+                response += "\"" + allWon + "\"" + ",";
+                response += "\"monthEarn\":";
+                response += "\"" + monthEarn + "\"" + ",";
+                response += "\"Total\":";
+                response += result + "},";
             }
         }
 
         if (goalAchieveMonth != 0) {
-            finalvar += ",{\"Years\":" + "\"" + (int)goalAchieveMonth/12 + "\"" + "}," + "{\"Months\":" + "\"" + (int)goalAchieveMonth%12 + "\"" + "}";
+            response += ",{\"Years\":" + "\"" + (int)goalAchieveMonth/12 + "\"" + "}," + "{\"Months\":" + "\"" + (int)goalAchieveMonth%12 + "\"" + "}";
         }
 
-        finalvar += "]";
-        return finalvar;
+        response += "]";
+
+        return response;
     }
 }

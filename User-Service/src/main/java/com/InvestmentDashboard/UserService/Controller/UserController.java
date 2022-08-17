@@ -10,15 +10,15 @@ public class UserController
 {
     private final UserService userService;
 
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @CrossOrigin(origins = "*")
     @PostMapping("/add")
     public String adduser (@RequestBody Users user)
     {
-        return userService.adduser(user);
+        return userService.addUser(user);
     }
     @CrossOrigin(origins = "*")
     @GetMapping("/")

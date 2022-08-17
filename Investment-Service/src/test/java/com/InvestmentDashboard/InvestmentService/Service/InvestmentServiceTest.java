@@ -50,12 +50,10 @@ class InvestmentServiceTest {
         underTest = new InvestmentService(investmentRepository);
     }
 
-    /////////////////////////////////////////////////   TEST  ////////////////////////////////////////
-
     @Test
     void shouldGetAllInvestments() {
         //when
-        underTest.allinvestments();
+        underTest.allInvestments();
         //then
         verify(investmentRepository).findAll();
     }
@@ -67,7 +65,7 @@ class InvestmentServiceTest {
                 "name","2022-6-13",1000,1500,0,false,"","","jack"
         );
         //when
-        underTest.addinvestment(investment);
+        underTest.addInvestment(investment);
 
         //then
         ArgumentCaptor<Investment> investmentArgumentCaptor = ArgumentCaptor.forClass(Investment.class);
@@ -79,7 +77,6 @@ class InvestmentServiceTest {
     }
 
     @Test
-    // Error because the name of this investment already exist for this username
     void shoulErrorWhenAddInvestment() {
         //given
         Investment investment = new Investment(
@@ -89,7 +86,7 @@ class InvestmentServiceTest {
         listeofinvestments.add(investment);
         given(investmentRepository.findAllByNameAndUsername(investment.getName(),investment.getUsername())).willReturn(listeofinvestments);
         //when
-        underTest.addinvestment(investment);
+        underTest.addInvestment(investment);
 
         //then
         verify(investmentRepository, never()).save(any());
@@ -104,7 +101,7 @@ class InvestmentServiceTest {
         );
 
         //when
-        underTest.getinvestmentbyid(investment.getId());
+        underTest.getInvestmentById(investment.getId());
         //then
         verify(investmentRepository).findById(investment.getId());
     }
@@ -112,25 +109,26 @@ class InvestmentServiceTest {
     @Test
     void shouldGiveAllCapital() {
         //given
+        String username = "jack";
         Investment investment1 = new Investment(
-                "name1","2022-6-13",1000,1500,0,false,"","","jack"
+                "name1","2022-6-13",1000,1500,0,false,"","",username
         );
         Investment investment2 = new Investment(
-                "name2","2022-6-13",1000,1500,0,false,"","","jack"
+                "name2","2022-6-13",1000,1500,0,false,"","",username
         );
         List<Investment> listeofinvestments = new ArrayList<Investment>();
         listeofinvestments.add(investment1);
         listeofinvestments.add(investment2);
 
-        given(investmentRepository.findAll()).willReturn(listeofinvestments);
+        given(investmentRepository.findAllByUsername(username)).willReturn(listeofinvestments);
         //when
-        float response = underTest.allcapital();
+        float response = underTest.allCapital(username);
         //then
         assertEquals(response,investment1.getCapital()+investment2.getCapital());
     }
 
     @Test
-    void allactual() {
+    void shouldGiveAllActual() {
         //given
         String username = "jack";
         Investment investment1 = new Investment(
@@ -145,33 +143,34 @@ class InvestmentServiceTest {
 
         given(investmentRepository.findAllByUsername(username)).willReturn(listeofinvestments);
         //when
-        float response = underTest.allactual(username);
+        float response = underTest.allActual(username);
         //then
         assertEquals(response,investment1.getActual()+investment2.getActual());
     }
 
     @Test
-    void allbenefice() {
+    void shouldGiveAllBenefice() {
         //given
+        String username = "jack";
         Investment investment1 = new Investment(
-                "name1","2022-6-13",1000,1500,500,false,"","","jack"
+                "name1","2022-6-13",1000,1500,500,false,"","",username
         );
         Investment investment2 = new Investment(
-                "name2","2022-6-13",1000,2000,1000,false,"","","jack"
+                "name2","2022-6-13",1000,2000,1000,false,"","",username
         );
         List<Investment> listeofinvestments = new ArrayList<Investment>();
         listeofinvestments.add(investment1);
         listeofinvestments.add(investment2);
 
-        given(investmentRepository.findAll()).willReturn(listeofinvestments);
+        given(investmentRepository.findAllByUsername(username)).willReturn(listeofinvestments);
         //when
-        float response = underTest.allbenefice();
+        float response = underTest.allBenefice(username);
         //then
         assertEquals(response,investment1.getBenefice()+investment2.getBenefice());
     }
 
     @Test
-    void getbenefice() {
+    void shouldGetBenefice() {
         //given
         Investment investment = new Investment(1,
                 "name","2022-6-13",1000,1500,500,false,"","","jack"
@@ -179,31 +178,10 @@ class InvestmentServiceTest {
         given(investmentRepository.findById(investment.getId())).willReturn(Optional.of(investment));
 
         //when
-        Float response = underTest.getbenefice(investment.getId());
+        Float response = underTest.getBenefice(investment.getId());
         //then
         verify(investmentRepository).findById(investment.getId());
         assertEquals(response,500);
-    }
-
-    @Test
-    void pourcentagebeneficeallinvestments() {
-        //given
-        Investment investment1 = new Investment(
-                "name1","2022-6-13",1000,1500,500,false,"","","jack"
-        );
-        Investment investment2 = new Investment(
-                "name2","2022-6-13",1000,2000,1000,false,"","","jack"
-        );
-        List<Investment> listeofinvestments = new ArrayList<Investment>();
-        listeofinvestments.add(investment1);
-        listeofinvestments.add(investment2);
-
-        given(investmentRepository.findAll()).willReturn(listeofinvestments);
-        //when
-        float response = underTest.pourcentagebeneficeallinvestments();
-        //then
-        assertEquals(response,(investment1.getBenefice()+investment2.getBenefice())/(investment1.getCapital()+investment2.getCapital()) * 100);
-
     }
 
     @Test
@@ -223,13 +201,13 @@ class InvestmentServiceTest {
 
         given(investmentRepository.findAllByUsername(username)).willReturn(listeofinvestments);
         //when
-        String response = underTest.alldata(username);
+        String response = underTest.allData(username);
         //then
         assertEquals(response,"{ \"base\":2000.0, \"actual\":3500.0, \"benefice\":1500.0, \"pourcentageallbenefice\":75.0}");
     }
 
     @Test
-    void updateinvestment() {
+    void shouldUpdate() {
         //given
         Investment investment1 = new Investment(
                 "name1","2022-6-13",1000,1500,500,false,"","","jack"
@@ -241,7 +219,7 @@ class InvestmentServiceTest {
         given(investmentRepository.findById(anyInt())).willReturn(Optional.of(investment1));
 
         //when
-        underTest.updateinvestment(investment1.getId(), investment2);
+        underTest.updateInvestment(investment1.getId(), investment2);
         //then
         ArgumentCaptor<Investment> investmentArgumentCaptor = ArgumentCaptor.forClass(Investment.class);
         verify(investmentRepository).save(investmentArgumentCaptor.capture());
@@ -251,7 +229,7 @@ class InvestmentServiceTest {
     }
 
     @Test
-    void deleteInvestment() {
+    void shouldDeleteInvestment() {
         //given
         Investment investment1 = new Investment(1,
                 "name1","2022-6-13",1000,1500,500,false,"","","jack"
@@ -263,17 +241,17 @@ class InvestmentServiceTest {
     }
 
     @Test
-    void allinvestmentsof() {
+    void shouldGetAllInvestmentsOf() {
         //given
         String username = "jack";
         //when
-        underTest.allinvestmentsof(username);
+        underTest.allInvestmentsOf(username);
         //then
         verify(investmentRepository).findAllByUsername(username);
     }
 
     @Test
-    void deleteAll()
+    void shouldDeleteAll()
     {
         //given
         String username = "jack";

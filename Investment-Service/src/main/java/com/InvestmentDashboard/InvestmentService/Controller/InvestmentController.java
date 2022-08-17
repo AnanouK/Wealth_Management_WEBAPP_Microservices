@@ -22,82 +22,68 @@ public class InvestmentController {
     @CrossOrigin(origins = "*")
     @GetMapping("/allinvestments")
     @ResponseStatus(HttpStatus.OK)
-    public List<Investment> allinvestmentsof (@RequestParam String username)
+    public List<Investment> allInvestmentsOf (@RequestParam String username)
     {
-        return investmentService.allinvestmentsof(username);
+        return investmentService.allInvestmentsOf(username);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Investment> getinvestmentbyid(@RequestParam int id)
+    public Optional<Investment> getInvestmentById(@RequestParam int id)
     {
-        return investmentService.getinvestmentbyid(id);
+        return investmentService.getInvestmentById(id);
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/addinvestment")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> addinvestment (@RequestBody Investment investment)
+    public ResponseEntity<String> addInvestment (@RequestBody Investment investment)
     {
-        return investmentService.addinvestment(investment);
+        return investmentService.addInvestment(investment);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/allcapital")
     @ResponseStatus(HttpStatus.OK)
-    public float allcapital()
+    public float allCapital(@RequestParam String username)
     {
-       return investmentService.allcapital();
+       return investmentService.allCapital(username);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/allactual")
     @ResponseStatus(HttpStatus.OK)
-    public float allactual(@RequestParam String username)
+    public float allActual(@RequestParam String username)
     {
-        return investmentService.allactual(username);
+        return investmentService.allActual(username);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/allbenefice")
     @ResponseStatus(HttpStatus.OK)
-    public float allbenefice()
-    {
-        return investmentService.allbenefice();
-    }
+    public float allBenefice(@RequestParam String username) {return investmentService.allBenefice(username);}
 
     @CrossOrigin(origins = "*")
     @GetMapping("/benefice")
     @ResponseStatus(HttpStatus.OK)
-    public float getbenefice (@PathVariable int id)
+    public float getBenefice (@PathVariable int id)
     {
-        return investmentService.getbenefice(id);
-    }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping("/pourcentagebenefice")
-    @ResponseStatus(code = HttpStatus.OK)
-    public float pourcentagebeneficeallinvestments ()
-    {
-        return investmentService.pourcentagebeneficeallinvestments();
+        return investmentService.getBenefice(id);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/alldata")
     @ResponseStatus(HttpStatus.OK)
-    public String alldata(@RequestParam String username)
+    public String allData(@RequestParam String username)
     {
-        return investmentService.alldata(username);
+        return investmentService.allData(username);
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping ("/update")
     @ResponseStatus(HttpStatus.OK)
-    public Investment updateinvestment(@RequestParam int id, @RequestBody Investment investment)
-    {
-        return investmentService.updateinvestment(id, investment);
-    }
+    public Investment updateInvestment(@RequestParam int id, @RequestBody Investment investment) {return investmentService.updateInvestment(id, investment);}
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/delete")
