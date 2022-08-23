@@ -12,7 +12,7 @@ pipeline {
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://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@github.com/Venenium/User-Service']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://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@github.com/Venenium/User-Service']]])
                 withSonarQubeEnv(installationName: 'sq1'){
                      bat 'mvn clean install sonar:sonar'
                 }
