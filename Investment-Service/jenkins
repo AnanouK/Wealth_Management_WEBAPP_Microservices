@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    tools{
+        maven 'maven'
+    }
+    environment{
+        PROJECT_ID='tribal-octane-355320'
+        CLUSTER_NAME='venenium'
+        LOCATION='europe-central2-a'
+        CREDENTIALS_ID='multi-k8s'
+    }
+    stages{
+        stage('Build Maven'){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://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@github.com/Venenium/Investment-Service']]])
+                withSonarQubeEnv(installationName: 'sq1'){
+                     bat 'mvn clean install sonar:sonar'
+                }
+            }
+        }
+        stage('Build docker image'){
+            steps{
+                script{
+                    bat 'docker build -t venenium/investmentservice:%BUILD_NUMBER% .'
+                }
+            }
+        }
+        stage('Push image to Hub'){
+            steps{
+                script{
+                   withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
+                   bat 'docker login -u venenium -p Mesbebe@3'
+                    }
+                   bat 'docker push venenium/investmentservice:%BUILD_NUMBER%'
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes GKE'){
+            steps{
+                bat ''' powershell -Command "(gc Investment-Service.yaml) -replace 'latest', %BUILD_NUMBER% | Out-File -encoding ASCII Investment-Service.yaml"'''
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'Investment-Service.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+            }
+        }
+    }
+}
