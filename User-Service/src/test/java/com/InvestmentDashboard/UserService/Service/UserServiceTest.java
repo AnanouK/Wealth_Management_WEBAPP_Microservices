@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.mockito.BDDMockito.given;
@@ -22,12 +23,14 @@ class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    private PasswordEncoder passwordEncoder;
     private UserService underTest;
 
     @BeforeEach
     void setUp() throws Exception
     {
-        underTest = new UserService(userRepository);
+        underTest = new UserService(userRepository, passwordEncoder);
     }
 
     @Test
@@ -36,7 +39,7 @@ class UserServiceTest {
         String username = "jack";
         Users newuser = new Users(1,username,"jack@gmail.com","123");
         //when
-        String response = underTest.adduser(newuser);
+        String response = underTest.addUser(newuser);
         //then
         verify(userRepository).save(newuser);
         assertEquals(response,"Création de l'utilisateur avec success");
@@ -50,7 +53,7 @@ class UserServiceTest {
         Users alreadysaved = new Users(2,username,"jack1@gmail.com","1234");
         given(userRepository.findByUsername(username)).willReturn(alreadysaved);
         //when
-        String response = underTest.adduser(newuser);
+        String response = underTest.addUser(newuser);
         //then
         verify(userRepository, never()).save(any());
         assertEquals(response,"Impossible, nom d'utilisateur existant");

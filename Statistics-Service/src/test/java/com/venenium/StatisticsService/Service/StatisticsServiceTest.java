@@ -209,8 +209,6 @@ class StatisticsServiceTest {
         //when
         List<Statistics> response = underTest.addDataForEmptyDatesForGlobalChart(username,name);
         //then
-
-        verify(statisticsRepository, times(3)).save(any());
         assertEquals(response.get(0),shouldAdd);
         assertEquals(response.get(1),shouldAdd2);
         assertEquals(response.get(2),shouldAdd3);
