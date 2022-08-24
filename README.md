@@ -3,7 +3,7 @@
 - Création d'une architecture microservices avec java springboot et API REST, actuellement 4 micro-services en utilisant la méthodologie TDD.
 - Chaque microservice est indépendant et possède sa propre base de données (Si nécessaire).
 - Deploiment sur kubernetes avec conteneurs docker.
-- CI/CD grâce à Jenkins, Maven, Github, Docker et kubernetes, SonarQube
+- CI/CD grâce à Jenkins, Maven, Github, Docker et kubernetes, SonarQube.
 
 ## Technologies utilisées
 - Java 18
@@ -39,7 +39,7 @@
 
 ## Pistes d'améliorations et tâches en cours
 
-- Ajouter Spring Security avec Token JWT (actuellement l'username est stocké dans le localstorage)
-- Nouveau microservice permettant de faire une simulation du patrimoine de l'utilisateur en fonction de ses performances actuelles
+- Ajouter Spring Security avec Token JWT (actuellement l'username est stocké dans le localstorage).
+- Nouveau microservice permettant de faire une simulation du patrimoine de l'utilisateur en fonction de ses performances actuelles.
 
 
