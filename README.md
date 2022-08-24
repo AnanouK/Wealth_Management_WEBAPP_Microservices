@@ -13,6 +13,7 @@
 - JUnit 5.8.2
 - Docker 4.10.1
 - Kubernetes GKE
+- Jenkins 2.346.3
 - SonarQube 9.6
 - Intellij / Visual Studio Code
 
