@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalculatorService {
 
-    public String resultList (int times, float initialCapital, float pourcentage, float monthlyMoney, float goal)
+    public String resultList (int times, float initialCapital, float pourcentage, float monthlyMoney, float goal, String pourcentageSelect)
     {
         String response = "[";
         float result  = initialCapital;
@@ -17,7 +17,12 @@ public class CalculatorService {
 
         for (int i = 0; i < times*12 ; i++)
         {
-            result = (result+monthlyMoney) * (1 + (pourcentage/12));
+            if (pourcentageSelect.equals("Annuel")) {
+                result = (result + monthlyMoney) * (1 + (pourcentage / 12));
+            }
+            else if (pourcentageSelect.equals("Mensuel")){
+                result = (result + monthlyMoney) * (1 + pourcentage);
+            }
             allInvest += monthlyMoney;
             float lastAllWon = allWon;
             allWon = result-allInvest;
@@ -34,11 +39,11 @@ public class CalculatorService {
                 response += "\"allInvest\":";
                 response += "\"" + (int) allInvest + "\"" + ",";
                 response += "\"allWon\":";
-                response += "\"" + allWon + "\"" + ",";
+                response += "\"" + (int) allWon + "\"" + ",";
                 response += "\"monthEarn\":";
-                response += "\"" + monthEarn + "\"" + ",";
+                response += "\"" + (int) monthEarn + "\"" + ",";
                 response += "\"Total\":";
-                response += result + "}";
+                response +=  (int) result + "}";
             }
             else
             {
@@ -47,11 +52,11 @@ public class CalculatorService {
                 response += "\"allInvest\":";
                 response += "\"" + (int) allInvest + "\"" + ",";
                 response += "\"allWon\":";
-                response += "\"" + allWon + "\"" + ",";
+                response += "\"" + (int) allWon + "\"" + ",";
                 response += "\"monthEarn\":";
-                response += "\"" + monthEarn + "\"" + ",";
+                response += "\"" + (int) monthEarn + "\"" + ",";
                 response += "\"Total\":";
-                response += result + "},";
+                response += (int) result + "},";
             }
         }
 

@@ -14,8 +14,8 @@ public class CalculatorController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/")
-    public String getData (@RequestParam int time, @RequestParam float initial, @RequestParam float pourcentage, @RequestParam float monthly, @RequestParam float goal ) {
-        return calculatorService.resultList(time,initial,pourcentage,monthly,goal);
+    public String getData (@RequestParam int time, @RequestParam float initial, @RequestParam float pourcentage, @RequestParam float monthly, @RequestParam float goal, @RequestParam String pourcentageSelect ) {
+        return calculatorService.resultList(time,initial,pourcentage,monthly,goal,pourcentageSelect);
     }
 
 }
