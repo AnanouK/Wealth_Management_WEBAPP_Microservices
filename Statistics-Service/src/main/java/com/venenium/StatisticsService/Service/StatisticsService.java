@@ -39,24 +39,52 @@ public class StatisticsService {
                 response += "\"" + allStatistics.get(j).getStart() + "\"" + ",";
                 response += "\"Capital\":";
                 response += String.valueOf(allStatistics.get(j).getActual()) + ",";
-                response += "\"Pourcentage\":";
-                response +=  + (allStatistics.get(j).getActual() - lastActual)/allStatistics.get(j).getActual() * 100 + "}";
+                response += "\"Capital de base\":";
+                response += String.valueOf(allStatistics.get(j).getCapital()) + ",";
+                if (!(allStatistics.get(j).getCapital().equals(allStatistics.get(j-1).getCapital())))
+                {
+                    response += "\"Pourcentage\":";
+                    response +=  "\"deposit\"" + "}";
+                }
+                else if(j >=1) {
+                    response += "\"Pourcentage\":";
+                    response += +(allStatistics.get(j).getActual() - lastActual) / allStatistics.get(j-1).getActual() * 100 + "}";
+                }
+
+                if (j == 0)
+                {
+                    lastActual = allStatistics.get(j).getActual();
+                    response += "\"Pourcentage\":";
+                    response +=  + 0.0 + "},";
+                }
                 lastActual = allStatistics.get(j).getActual();
             }
 
             else {
-                if (j == 0)
-                {
-                    lastActual = allStatistics.get(j).getActual();
-                }
                 response += "{\"Id\":";
                 response += "\"" + allStatistics.get(j).getId() + "\"" + ",";
                 response += "\"Date\":";
                 response += "\"" + allStatistics.get(j).getStart() + "\"" + ",";
                 response += "\"Capital\":";
                 response += String.valueOf(allStatistics.get(j).getActual()) + ",";
-                response += "\"Pourcentage\":";
-                response +=  + (allStatistics.get(j).getActual() - lastActual)/allStatistics.get(j).getActual() * 100 + "},";
+                response += "\"Capital de base\":";
+                response += String.valueOf(allStatistics.get(j).getCapital()) + ",";
+                if (j >= 1 && !(allStatistics.get(j).getCapital().equals(allStatistics.get(j-1).getCapital())))
+                {
+                    response += "\"Pourcentage\":";
+                    response +=  "\"deposit\"" + "},";
+                }
+                else if(j >=1)  {
+                    response += "\"Pourcentage\":";
+                    response +=  + (allStatistics.get(j).getActual() - lastActual)/allStatistics.get(j-1).getActual() * 100 + "},";
+                }
+
+                if (j == 0)
+                {
+                    lastActual = allStatistics.get(j).getActual();
+                    response += "\"Pourcentage\":";
+                    response +=  + 0.0 + "},";
+                }
                 lastActual = allStatistics.get(j).getActual();
             }
 
@@ -155,5 +183,36 @@ public class StatisticsService {
             }
         }
         return response;
+    }
+
+    public Float getMonthlyPourcentage(String username, String name) {
+        List<Statistics> getStatistics = statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username);
+
+        if (getStatistics.size() == 0)
+        {
+            return 0F;
+        }
+        else if (getStatistics.size() == 1)
+        {
+            return (getStatistics.get(getStatistics.size()-1).getActual() - Float.parseFloat(getStatistics.get(0).getCapital())) / Float.parseFloat(getStatistics.get(0).getCapital()) * 100;
+        }
+        else
+        {
+            for (int i = getStatistics.size()-1; i >=0  ; i--) {
+                if (getStatistics.get(i).getStart().split("-")[0].equals("01") && (getStatistics.get(i).getStart().split("-")[1].equals(getStatistics.get(getStatistics.size()-1).getStart().split("-")[1]))){
+                    if (i == getStatistics.size()-1 || i == 0) {
+                        return (getStatistics.get(getStatistics.size()-1).getActual()  - Float.parseFloat(getStatistics.get(i).getCapital())) / Float.parseFloat(getStatistics.get(i).getCapital()) * 100;
+                    }
+                    else
+                    {
+                       return (getStatistics.get(getStatistics.size()-1).getActual()  - getStatistics.get(i-1).getActual()) / getStatistics.get(i-1).getActual() * 100;
+                    }
+                }
+                else if (! (Integer.parseInt(getStatistics.get(i).getStart().split("-")[1]) == Integer.parseInt(getStatistics.get(getStatistics.size()-1).getStart().split("-")[1]))){
+                    return (getStatistics.get(getStatistics.size()-1).getActual()  - getStatistics.get(i).getActual()) / getStatistics.get(i).getActual() * 100;
+                }
+            }
+        }
+        return 0f;
     }
 }

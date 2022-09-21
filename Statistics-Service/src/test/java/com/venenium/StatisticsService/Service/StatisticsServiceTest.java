@@ -60,7 +60,7 @@ class StatisticsServiceTest {
         String response = underTest.getDataForOne(name,username);
         //then
         verify(statisticsRepository).findByNameAndUsernameOrderByIdAsc(name,username);
-        assertEquals(response, "[{\"Id\":\"32\",\"Date\":\"2022-6-13\",\"Capital\":1500.0,\"Pourcentage\":0.0},{\"Id\":\"44\",\"Date\":\"2022-6-14\",\"Capital\":1600.0,\"Pourcentage\":6.25}]");
+        assertEquals("[{\"Id\":\"32\",\"Date\":\"2022-6-13\",\"Capital\":1500.0,\"Capital de base\":1000.0F,\"Pourcentage\":0.0},{\"Id\":\"44\",\"Date\":\"2022-6-14\",\"Capital\":1600.0,\"Capital de base\":1000.0F,\"Pourcentage\":6.666667}]", response);
 
     }
 
@@ -181,37 +181,118 @@ class StatisticsServiceTest {
     }
 
     @Test
-    void shouldAddDataForEmptyDatesForGlobalChart() {
+    void shouldGetMonthlyPourcentageWith01(){
         //given
-        String name = "global";
+        String name = "test";
+        String username = "jack";
+        Statistics statistics1 = new Statistics(
+                name,"01-05-2022", "1300.0F", 1500.0F,false,"","",username
+        );
+        Statistics statistics2 = new Statistics(
+                name,"01-06-2022", "1300.0F", 1600.0F,false,"","",username
+        );
+        Statistics statistics3 = new Statistics(
+                name,"18-06-2022", "1300.0F", 1800.0F,false,"","",username
+        );
+        List<Statistics> listeofinvestments = new ArrayList<Statistics>();
+        listeofinvestments.add(statistics1);
+        listeofinvestments.add(statistics2);
+        listeofinvestments.add(statistics3);
+
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
+
+        //when
+        float response = underTest.getMonthlyPourcentage(username,name);
+        //verify
+        assertEquals(20, response );
+    }
+
+    @Test
+    void shouldGetMonthlyPourcentageWithout01(){
+        //given
+        String name = "test";
+        String username = "jack";
+        Statistics statistics1 = new Statistics(
+                name,"12-05-2022", "1300.0F", 1500.0F,false,"","",username
+        );
+        Statistics statistics2 = new Statistics(
+                name,"15-06-2022", "1300.0F", 1600.0F,false,"","",username
+        );
+        Statistics statistics3 = new Statistics(
+                name,"19-06-2022", "1300.0F", 1800.0F,false,"","",username
+        );
+        List<Statistics> listeofinvestments = new ArrayList<Statistics>();
+        listeofinvestments.add(statistics1);
+        listeofinvestments.add(statistics2);
+        listeofinvestments.add(statistics3);
+
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
+
+        //when
+        float response = underTest.getMonthlyPourcentage(username,name);
+        //verify
+        assertEquals(20, response );
+    }
+
+    @Test
+    void shouldGetMonthlyPourcentageWith2Rows(){
+        //given
+        String name = "test";
+        String username = "jack";
+        Statistics statistics1 = new Statistics(
+                name,"01-06-2022", "1500.0F", 1550.0F,false,"","",username
+        );
+        Statistics statistics2 = new Statistics(
+                name,"12-06-2022", "1500.0F", 1800.0F,false,"","",username
+        );
+
+        List<Statistics> listeofinvestments = new ArrayList<Statistics>();
+        listeofinvestments.add(statistics1);
+        listeofinvestments.add(statistics2);
+
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
+
+        //when
+        float response = underTest.getMonthlyPourcentage(username,name);
+        //verify
+        assertEquals(20, response );
+    }
+
+    @Test
+    void shouldGetMonthlyPourcentageWith1Row(){
+        //given
+        String name = "test";
         String username = "jack";
 
-        Statistics alreadysaved = new Statistics(
-                name,"12-8-2022", "1000.0F", 1500.0F,false,"","",username
+        Statistics statistics1 = new Statistics(
+                name,"12-06-2022", "1500.0F", 1800.0F,false,"","",username
         );
-        Statistics alreadysaved1 = new Statistics(
-                name,"13-8-2022", "1200.0F", 1600.0F,false,"","",username
-        );
-        Statistics shouldAdd = new Statistics(
-                name,"14-8-2022", "1200.0F", 1600.0F,false,"","",username
-        );
-        Statistics shouldAdd2 = new Statistics(
-                name,"15-8-2022", "1200.0F", 1600.0F,false,"","",username
-        );
-        Statistics shouldAdd3 = new Statistics(
-                name,"16-8-2022", "1200.0F", 1600.0F,false,"","",username
-        );
-        List<Statistics> listeOfInvestments = new ArrayList<Statistics>();
-        listeOfInvestments.add(alreadysaved);
-        listeOfInvestments.add(alreadysaved1);
 
-        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeOfInvestments);
+        List<Statistics> listeofinvestments = new ArrayList<Statistics>();
+        listeofinvestments.add(statistics1);
+
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
+
         //when
-        List<Statistics> response = underTest.addDataForEmptyDatesForGlobalChart(username,name);
-        //then
-        assertEquals(response.get(0),shouldAdd);
-        assertEquals(response.get(1),shouldAdd2);
-        assertEquals(response.get(2),shouldAdd3);
-
+        float response = underTest.getMonthlyPourcentage(username,name);
+        //verify
+        assertEquals(20, response );
     }
+
+    @Test
+    void shouldGetMonthlyPourcentageOf0(){
+        //given
+        String name = "test";
+        String username = "jack";
+
+        List<Statistics> listeofinvestments = new ArrayList<Statistics>();
+
+        given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
+
+        //when
+        float response = underTest.getMonthlyPourcentage(username,name);
+        //verify
+        assertEquals(0.0, response );
+    }
+
 }

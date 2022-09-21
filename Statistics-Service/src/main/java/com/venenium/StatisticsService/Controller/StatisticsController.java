@@ -63,6 +63,9 @@ public class StatisticsController {
     @GetMapping("/checkempty")
     public List<Statistics> addDataForEmptyDates(@RequestParam String username, @RequestParam String name) {return statisticsService.addDataForEmptyDatesForGlobalChart(username,name);}
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/getMonthlyPourcentage")
+    public Float getMonthlyPourcentage(@RequestParam String username, @RequestParam String name) {return statisticsService.getMonthlyPourcentage(username,name);}
 
 
 }
