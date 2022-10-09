@@ -185,7 +185,7 @@ public class StatisticsService {
         return response;
     }
 
-    public Float getMonthlyPourcentage(String username, String name) {
+    public float getMonthlyPercentage(String username, String name) {
         List<Statistics> getStatistics = statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username);
 
         if (getStatistics.size() == 0)
@@ -215,4 +215,21 @@ public class StatisticsService {
         }
         return 0f;
     }
+
+    public float getMonthlyEarn(String name, String username){
+        float percentage = getMonthlyPercentage(username,name);
+        List<Statistics> getStatistics = statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username);
+        if (getStatistics.size() > 0) {
+            float actualCapital = getStatistics.get(getStatistics.size() - 1).getActual();
+            float finalPercentage = (float) (1.0 + (percentage / 100.0));
+
+            return actualCapital - (actualCapital / finalPercentage);
+        }
+        else
+        {
+            return 0f;
+        }
+    }
+
 }
+

@@ -181,7 +181,7 @@ class StatisticsServiceTest {
     }
 
     @Test
-    void shouldGetMonthlyPourcentageWith01(){
+    void shouldGetMonthlyPercentageWith01(){
         //given
         String name = "test";
         String username = "jack";
@@ -202,13 +202,13 @@ class StatisticsServiceTest {
         given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
 
         //when
-        float response = underTest.getMonthlyPourcentage(username,name);
+        float response = underTest.getMonthlyPercentage(username,name);
         //verify
         assertEquals(20, response );
     }
 
     @Test
-    void shouldGetMonthlyPourcentageWithout01(){
+    void shouldGetMonthlyPercentageWithout01(){
         //given
         String name = "test";
         String username = "jack";
@@ -229,13 +229,13 @@ class StatisticsServiceTest {
         given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
 
         //when
-        float response = underTest.getMonthlyPourcentage(username,name);
+        float response = underTest.getMonthlyPercentage(username,name);
         //verify
         assertEquals(20, response );
     }
 
     @Test
-    void shouldGetMonthlyPourcentageWith2Rows(){
+    void shouldGetMonthlyPercentageWith2Rows(){
         //given
         String name = "test";
         String username = "jack";
@@ -253,13 +253,13 @@ class StatisticsServiceTest {
         given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
 
         //when
-        float response = underTest.getMonthlyPourcentage(username,name);
+        float response = underTest.getMonthlyPercentage(username,name);
         //verify
         assertEquals(20, response );
     }
 
     @Test
-    void shouldGetMonthlyPourcentageWith1Row(){
+    void shouldGetMonthlyPercentageWith1Row(){
         //given
         String name = "test";
         String username = "jack";
@@ -274,13 +274,13 @@ class StatisticsServiceTest {
         given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
 
         //when
-        float response = underTest.getMonthlyPourcentage(username,name);
+        float response = underTest.getMonthlyPercentage(username,name);
         //verify
         assertEquals(20, response );
     }
 
     @Test
-    void shouldGetMonthlyPourcentageOf0(){
+    void shouldGetMonthlyPercentageOf0(){
         //given
         String name = "test";
         String username = "jack";
@@ -290,7 +290,7 @@ class StatisticsServiceTest {
         given(statisticsRepository.findByNameAndUsernameOrderByIdAsc(name,username)).willReturn(listeofinvestments);
 
         //when
-        float response = underTest.getMonthlyPourcentage(username,name);
+        float response = underTest.getMonthlyPercentage(username,name);
         //verify
         assertEquals(0.0, response );
     }

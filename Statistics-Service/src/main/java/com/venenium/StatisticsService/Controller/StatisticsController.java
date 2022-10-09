@@ -64,8 +64,12 @@ public class StatisticsController {
     public List<Statistics> addDataForEmptyDates(@RequestParam String username, @RequestParam String name) {return statisticsService.addDataForEmptyDatesForGlobalChart(username,name);}
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/getMonthlyPourcentage")
-    public Float getMonthlyPourcentage(@RequestParam String username, @RequestParam String name) {return statisticsService.getMonthlyPourcentage(username,name);}
+    @GetMapping("/getMonthlyPercentage")
+    public Float getMonthlyPercentage(@RequestParam String username, @RequestParam String name) {return statisticsService.getMonthlyPercentage(username,name);}
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/getMonthlyEarn")
+    public Float getMonthlyEarn(@RequestParam String name, @RequestParam String username) {return statisticsService.getMonthlyEarn(name,username);}
 
 
 }
