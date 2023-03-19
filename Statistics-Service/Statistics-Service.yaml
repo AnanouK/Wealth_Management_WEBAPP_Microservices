@@ -20,7 +20,7 @@ spec:
             - containerPort: 80
           env:   # Setting Environmental Variables
             - name: DB_HOST   # Setting Database host address
-              value: statistic-database
+              value: statistic-d
             - name: DB_NAME  # Setting Database name
               value: statistics
             - name: DB_USERNAME  # Setting Database username
